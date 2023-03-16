@@ -1,3 +1,2 @@
 #Node Modules
-/app/node_modules
-/app/mobli-backend/node_modules
+node_modules
