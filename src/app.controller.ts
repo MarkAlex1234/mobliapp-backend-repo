@@ -21,7 +21,7 @@ export class AppController {
   @Get(':busId/details')
   //Promise<GetBusDetailsResponseInterface>
   async getBusDetails() {
-    const snapshot = await admin.database().ref('/data').once('value');
+    const snapshot = await admin.database().ref('/Bus').once('value');
     const data = snapshot.val();
     return data;
   }
