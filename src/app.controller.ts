@@ -3,6 +3,7 @@ import { AppService } from './app.service';
 import { GetBusDetailsResponseInterface } from './common/interfaces/get-bus-details-response.interface';
 import { GetBusLocationResponseInterface } from './common/interfaces/get-bus-location-response.interface';
 import { PatchBusLocationResponseInterface } from './common/interfaces/patch-bus-location-response.interface';
+import * as admin from 'firebase-admin';
 
 @Controller()
 export class AppController {
@@ -18,8 +19,11 @@ export class AppController {
    * @returns
    */
   @Get(':busId/details')
-  getBusDetails(): GetBusDetailsResponseInterface {
-    return this.appService.getHello();
+  //Promise<GetBusDetailsResponseInterface>
+  async getBusDetails() {
+    const snapshot = await admin.database().ref('/data').once('value');
+    const data = snapshot.val();
+    return data;
   }
 
   /**
