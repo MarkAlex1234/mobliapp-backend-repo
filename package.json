@@ -2,6 +2,7 @@
   "name": "mobli-backend",
   "version": "0.0.1",
   "description": "",
+  "apiVersion": "v1",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
