@@ -1,4 +1,4 @@
-import firebase from "firebase-admin/lib";
+import firebase from "firebase/app";
 // import "firebase/database";
 import { getDatabase, ref, set } from "firebase/database";
 
@@ -15,24 +15,36 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
+// let Ref = firebase.database().ref("/Bus");
 
+const database = getDatabase();
+
+function writeUserData(Id, Route, Location){
+  const db = getDatabase();
+  set(ref(db, '/Bus'), {
+    busId: Id,
+    busRoute: Route,
+    busLocation: Location
+  });
+}
+
+writeUserData("12342134", "Here to there", "nowhere");
 //write data
-database.ref("/Bus/:busId").set({
-  busId: "busId",
-  busRoute: "busRoute",
-  busLocation: "busLocation",
-});
+// database.ref("/Bus/:busId").set({
+//   busId: "busId",
+//   busRoute: "busRoute",
+//   busLocation: "busLocation",
+// });
 
 //read data
 // database.ref("/Bus/:busId").on("value", (snapshot) => {
 //     const data = snapshot.val();
 //     console.log(data);
 // })
-database
-.ref("/Bus/:busId")
-.once("value")
-.then((snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-});
+// database
+// .ref("/Bus/:busId")
+// .once("value")
+// .then((snapshot) => {
+//     const data = snapshot.val();
+//     console.log(data);
+// });
