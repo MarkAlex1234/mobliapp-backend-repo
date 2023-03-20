@@ -1,6 +1,6 @@
-import firebase from "firebase-admin";
-import "firebase/database";
-
+import firebase from "firebase-admin/lib";
+// import "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDNOPHgGhibR_c7mAUsBW8fZPWXlVsWzc0",
@@ -17,23 +17,22 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-//read data
-database.ref("/Bus/:busId").on("value", (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-})
+//write data
+database.ref("/Bus/:busId").set({
+  busId: "busId",
+  busRoute: "busRoute",
+  busLocation: "busLocation",
+});
 
+//read data
+// database.ref("/Bus/:busId").on("value", (snapshot) => {
+//     const data = snapshot.val();
+//     console.log(data);
+// })
 database
 .ref("/Bus/:busId")
 .once("value")
 .then((snapshot) => {
     const data = snapshot.val();
     console.log(data);
-});
-
-//write data
-database.ref("/Bus/:busId").set({
-  busId: "busId",
-  busRoute: "busRoute",
-  busLocation: "busLocation",
 });
