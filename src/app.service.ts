@@ -79,6 +79,7 @@ export class AppService {
         timestamp: bus.vehicle.timestamp,
       }));
 
+      console.log(activeBuses); // FOR DEBUGGING
       return activeBuses;
     } catch (error) {
       console.error(error);
