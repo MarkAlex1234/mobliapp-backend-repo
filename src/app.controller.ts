@@ -1,17 +1,9 @@
-import { Controller, Get, Param, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { GetBusDetailsResponseInterface } from './common/interfaces/get-bus-details-response.interface';
-import { GetBusLocationResponseInterface } from './common/interfaces/get-bus-location-response.interface';
-import { PatchBusLocationResponseInterface } from './common/interfaces/patch-bus-location-response.interface';
-import * as admin from 'firebase-admin';
-import { HttpService } from '@nestjs/axios';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private httpService: HttpService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
@@ -19,23 +11,20 @@ export class AppController {
   }
 
   /**
-   *
+   * Endpoint to get bus details by bus ID
    * @returns
    */
-  @Get(':busId/details')
-  //Promise<GetBusDetailsResponseInterface>
-  async getBusDetails() {
-    const snapshot = await admin.database().ref('/Bus/:busId').once('value');
-    const data = snapshot.val();
-    return data;
+  @Get('bus/:busId/details')
+  async getBusDetails(@Param('busId') busId: string) {
+    return this.appService.getBusDetailsFromFirebaseById(busId);
   }
 
   /**
    *
    * @returns
    */
-  @Get(':busId/location')
-  getBusLocation(): GetBusLocationResponseInterface {
+  @Get('bus/:busId/location')
+  getBusLocation() {
     return this.appService.getHello();
   }
 
@@ -43,32 +32,39 @@ export class AppController {
    *
    * @returns
    */
-  @Patch(':busId/location')
-  updateBusLocation(): PatchBusLocationResponseInterface {
+  @Patch('bus/:busId/update-location')
+  updateBusLocation() {
     return this.appService.getHello();
   }
 
   /**
-   *
+   * Endpoint to get route details by route ID
    */
   @Get('route/:routeId')
-  async getBusOnTripByID(
-    @Param('routeId') routeId: string,
-  ): Promise<GetBusLocationResponseInterface> {
-    try {
-      const response = await this.httpService
-        .get(`https://api.at.govt.nz/gtfs/v3/routes/${routeId}`, {
-          headers: {
-            'Ocp-Apim-Subscription-Key': process.env.SUBSCRIPTION_KEY,
-          },
-        })
-        .toPromise();
+  async getBusOnTripByID(@Param('routeId') routeId: string) {
+    return this.appService.getRouteById(routeId);
+  }
 
-      console.log(response.data); // handle the response data here
-      return response.data.data;
-    } catch (error) {
-      console.error(error);
-      throw error;
+  /**
+   * Endpoint to get active buses on a route by route short name
+   * @returns
+   */
+  @Get('route/:routeShortName/active')
+  getAllActiveBusesByRouteShortName(
+    @Param('routeShortName') routeShortName: string,
+  ) {
+    return this.appService.getAllActiveBusesByRouteShortName(routeShortName);
+  }
+
+  /**
+   * Endpoint to get all stops
+   * @returns
+   */
+  @Get('all/stops')
+  getAllStops(@Query('filterDate') filterDate?: Date) {
+    if (filterDate) {
+      return this.appService.getAllStops(filterDate);
     }
+    return this.appService.getAllStops();
   }
 }
