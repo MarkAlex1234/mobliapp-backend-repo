@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  connected(): string {
+    return this.appService.connected();
   }
 
   /**
@@ -25,7 +25,7 @@ export class AppController {
    */
   @Get('bus/:busId/location')
   getBusLocation() {
-    return this.appService.getHello();
+    return this.appService.connected();
   }
 
   /**
@@ -34,7 +34,7 @@ export class AppController {
    */
   @Patch('bus/:busId/update-location')
   updateBusLocation() {
-    return this.appService.getHello();
+    return this.appService.connected();
   }
 
   /**
@@ -46,25 +46,56 @@ export class AppController {
   }
 
   /**
-   * Endpoint to get active buses on a route by route short name
+   * Endpoint to get active buses on a route by route ID
    * @returns
    */
-  @Get('route/:routeShortName/active')
-  getAllActiveBusesByRouteShortName(
-    @Param('routeShortName') routeShortName: string,
-  ) {
-    return this.appService.getAllActiveBusesByRouteShortName(routeShortName);
+  @Get('active-buses/route/:routeId')
+  getAllActiveBusesByRouteId(@Param('routeId') routeId: string) {
+    return this.appService.getAllActiveBusesByRouteId(routeId);
   }
 
   /**
    * Endpoint to get all stops
    * @returns
    */
-  @Get('all/stops')
-  getAllStops(@Query('filterDate') filterDate?: Date) {
-    if (filterDate) {
-      return this.appService.getAllStops(filterDate);
-    }
+  @Get('stops/all')
+  getAllStops() {
     return this.appService.getAllStops();
+  }
+
+  /**
+   * Endpoint to get a stop by ID
+   * @returns
+   */
+  @Get('stops/:stopId')
+  getStopById(@Param('stopId') stopId: string) {
+    return this.appService.getStopById(stopId);
+  }
+
+  /**
+   * Endpoint to get all active buses
+   * @returns
+   */
+  @Get('bus/active/all')
+  getAllActiveBuses() {
+    return this.appService.getAllActiveBuses();
+  }
+
+  /**
+   * Endpoint to get active bus by ID
+   * @returns
+   */
+  @Get('bus/active/:busId')
+  getActiveBusLocationById(@Param('busId') busId: string) {
+    return this.appService.getActiveBusLocationById(busId);
+  }
+
+  /**
+   * Endpoint to get trip updates by ID
+   * @returns
+   */
+  @Get('trip/:tripId')
+  getTripUpdatesById(@Param('tripId') tripId: string) {
+    return this.appService.getTripUpdatesById(tripId);
   }
 }
