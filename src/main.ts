@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as admin from 'firebase-admin';
 import * as dotenv from 'dotenv';
+import { PORT } from './common/constants/common';
 const serviceAccount = require('./../firebase.json');
 
 async function bootstrap() {
@@ -15,6 +16,6 @@ async function bootstrap() {
 
   //NEST APP INIT
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 bootstrap();
