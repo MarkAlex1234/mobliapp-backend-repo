@@ -16,6 +16,10 @@ async function bootstrap() {
 
   //NEST APP INIT
   const app = await NestFactory.create(AppModule);
+
+  //UNCOMMENT WHEN RUNNING LOCAL FRONTEND PROJECT:
+  //app.enableCors();
+
   await app.listen(PORT);
 }
 bootstrap();
