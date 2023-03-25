@@ -20,7 +20,7 @@ export class AppController {
   }
 
   /**
-   *
+   * Get a bus location
    * @returns
    */
   @Get('bus/:busId/location')
@@ -29,7 +29,7 @@ export class AppController {
   }
 
   /**
-   *
+   * Update a bus' location in the database
    * @returns
    */
   @Patch('bus/:busId/update-location')
