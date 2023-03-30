@@ -1,13 +1,13 @@
 import { Controller, Get, Param, Patch, Query } from '@nestjs/common';
-import { AppService } from './app.service';
+import { BusService } from './bus.service';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class BusController {
+  constructor(private readonly busService: BusService) {}
 
   @Get()
   connected(): string {
-    return this.appService.connected();
+    return this.busService.connected();
   }
 
   /**
@@ -16,7 +16,7 @@ export class AppController {
    */
   @Get('bus/:busId/details')
   async getBusDetails(@Param('busId') busId: string) {
-    return this.appService.getBusDetailsFromFirebaseById(busId);
+    return this.busService.getBusDetailsFromFirebaseById(busId);
   }
 
   /**
@@ -25,7 +25,7 @@ export class AppController {
    */
   @Get('bus/:busId/location')
   getBusLocation() {
-    return this.appService.connected();
+    return this.busService.connected();
   }
 
   /**
@@ -34,7 +34,7 @@ export class AppController {
    */
   @Patch('bus/:busId/update-location')
   updateBusLocation() {
-    return this.appService.connected();
+    return this.busService.connected();
   }
 
   /**
@@ -42,7 +42,7 @@ export class AppController {
    */
   @Get('route/:routeId')
   async getBusOnTripByID(@Param('routeId') routeId: string) {
-    return this.appService.getRouteById(routeId);
+    return this.busService.getRouteById(routeId);
   }
 
   /**
@@ -51,7 +51,7 @@ export class AppController {
    */
   @Get('active-buses/route/:routeId')
   getAllActiveBusesByRouteId(@Param('routeId') routeId: string) {
-    return this.appService.getAllActiveBusesByRouteId(routeId);
+    return this.busService.getAllActiveBusesByRouteId(routeId);
   }
 
   /**
@@ -60,7 +60,7 @@ export class AppController {
    */
   @Get('stops/all')
   getAllStops() {
-    return this.appService.getAllStops();
+    return this.busService.getAllStops();
   }
 
   /**
@@ -69,7 +69,7 @@ export class AppController {
    */
   @Get('stops/:stopId')
   getStopById(@Param('stopId') stopId: string) {
-    return this.appService.getStopById(stopId);
+    return this.busService.getStopById(stopId);
   }
 
   /**
@@ -78,7 +78,7 @@ export class AppController {
    */
   @Get('bus/active/all')
   getAllActiveBuses() {
-    return this.appService.getAllActiveBuses();
+    return this.busService.getAllActiveBuses();
   }
 
   /**
@@ -87,7 +87,7 @@ export class AppController {
    */
   @Get('bus/active/:busId')
   getActiveBusLocationById(@Param('busId') busId: string) {
-    return this.appService.getActiveBusLocationById(busId);
+    return this.busService.getActiveBusLocationById(busId);
   }
 
   /**
@@ -96,6 +96,6 @@ export class AppController {
    */
   @Get('trip/:tripId')
   getTripUpdatesById(@Param('tripId') tripId: string) {
-    return this.appService.getTripUpdatesById(tripId);
+    return this.busService.getTripUpdatesById(tripId);
   }
 }

@@ -1,10 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
-import { VEHICLE_TYPE } from './common/constants/common';
 
 @Injectable()
-export class AppService {
+export class BusService {
   constructor(private httpService: HttpService) {}
 
   connected(): string {
