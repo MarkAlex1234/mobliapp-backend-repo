@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { BusModule } from './bus/bus.module';
 import * as admin from 'firebase-admin';
 import * as dotenv from 'dotenv';
 import { PORT } from './common/constants/common';
+import { AppModule } from './app.module';
 const serviceAccount = require('./../firebase.json');
 
 async function bootstrap() {
@@ -15,7 +15,7 @@ async function bootstrap() {
   });
 
   //NEST APP INIT
-  const app = await NestFactory.create(BusModule);
+  const app = await NestFactory.create(AppModule);
 
   //UNCOMMENT WHEN RUNNING LOCAL FRONTEND PROJECT:
   //app.enableCors();
