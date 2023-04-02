@@ -1,9 +1,22 @@
-import { Module } from '@nestjs/common';
-import { BusModule } from './bus/bus.module';
-import { UsersModule } from './users/users.module';
-import { AdminModule } from './admin/admin.module';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
+import { BusModule } from './modules/bus.module';
+import { UsersModule } from './modules/users.module';
+import { AdminModule } from './modules/admin.module';
+import { PreauthMiddleware } from './auth/preauth.middleware';
 
 @Module({
   imports: [BusModule, UsersModule, AdminModule],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(PreauthMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
+  }
+}

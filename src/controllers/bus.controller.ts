@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Patch, Query } from '@nestjs/common';
-import { BusService } from './bus.service';
+import { BusService } from '../services/bus.service';
 
 @Controller('bus')
 export class BusController {
