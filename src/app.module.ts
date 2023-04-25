@@ -7,7 +7,7 @@ import {
 import { BusModule } from './modules/bus.module';
 import { UsersModule } from './modules/users.module';
 import { AdminModule } from './modules/admin.module';
-import { PreauthMiddleware } from './auth/preauth.middleware';
+import { PreauthMiddleware } from './common/auth/preauth.middleware';
 
 @Module({
   imports: [BusModule, UsersModule, AdminModule],
