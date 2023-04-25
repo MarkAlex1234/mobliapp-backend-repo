@@ -8,5 +8,6 @@ import { BusModule } from './bus.module';
   imports: [HttpModule, BusModule],
   controllers: [UsersContoller],
   providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}

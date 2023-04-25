@@ -1,18 +1,12 @@
 import { Injectable } from '@nestjs/common';
-<<<<<<< Updated upstream
-
-@Injectable()
-export class UsersService {
-  constructor(private httpService: HttpService) {}
-=======
 import { UserInterface } from 'src/common/interfaces/user.interface';
 import * as admin from 'firebase-admin';
-import * as geolib from 'geolib';
 import { BusService } from './bus.service';
+import * as geolib from 'geolib';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly busService: BusService) {}
+  constructor(private busService: BusService) {}
 
   /*
    * Get a user from firebase by ID
@@ -142,5 +136,4 @@ export class UsersService {
       console.error('Error getting user: ', userId);
     }
   }
->>>>>>> Stashed changes
 }
