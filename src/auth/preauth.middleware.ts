@@ -45,7 +45,10 @@ export class PreauthMiddleware implements NestMiddleware {
           this.accessDenied(req.url, res);
         });
     } else {
-      this.accessDenied(req.url, res);
+      console.error('Warning no admin is signed in.');
+      next();
+      //TODO SET UP ADMIN AND BLOCK
+      //this.accessDenied(req.url, res);
     }
   }
 

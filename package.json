@@ -27,9 +27,10 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "axios": "^1.3.4",
+    "axios": "^1.3.6",
     "dotenv": "16.0.3",
     "firebase-admin": "11.5.0",
+    "geolib": "^3.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"

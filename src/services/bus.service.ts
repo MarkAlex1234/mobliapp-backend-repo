@@ -100,7 +100,7 @@ export class BusService {
           },
         })
         .toPromise();
-      return response.data;
+      return response.data.response.entity;
     } catch (error) {
       console.error(error);
       throw error;
