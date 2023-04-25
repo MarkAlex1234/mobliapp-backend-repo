@@ -7,5 +7,6 @@ import { BusService } from '../services/bus.service';
   imports: [HttpModule],
   controllers: [BusController],
   providers: [BusService],
+  exports: [BusService],
 })
 export class BusModule {}
