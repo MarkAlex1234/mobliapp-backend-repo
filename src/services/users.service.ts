@@ -18,6 +18,16 @@ export class UsersService {
   }
 
   /**
+   * Create a user
+   * @param user
+   * @returns
+   */
+  async addUser(user: UserInterface): Promise<UserInterface> {
+    await this.writeUserData(user);
+    return this.getUser(user.userId);
+  }
+
+  /**
    * Gets the 5 nearest buses for a user
    * @param userId
    */

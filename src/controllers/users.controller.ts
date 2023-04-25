@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
+import { UserInterface } from 'src/common/interfaces/user.interface';
 
 @Controller('users')
 export class UsersContoller {
@@ -34,6 +35,14 @@ export class UsersContoller {
   @Post('user/:userId/location')
   setUserBusRide(@Param('userId') userId: string) {
     return this.usersService.setUserBusRide(userId);
+  }
+
+  /**
+   * Endpoint to create a user
+   */
+  @Post('/create')
+  addUser(@Body() user: UserInterface) {
+    return this.usersService.addUser(user);
   }
 
   /**
