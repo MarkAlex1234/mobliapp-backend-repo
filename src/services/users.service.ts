@@ -38,7 +38,10 @@ export class UsersService {
    * @param userId
    */
   async getNearestBusesForUser(userId: string): Promise<BusDataInterface[]> {
-    const [busData] = await Promise.all([this.busService.getAllActiveBuses()]);
+    const [user, busData] = await Promise.all([
+      this.getUserFromFirebase(userId),
+      this.busService.getAllActiveBuses(),
+    ]);
 
     const mappedBusData: BusDataInterface[] = busData.map((item: any) => ({
       id: item.id,
@@ -52,8 +55,8 @@ export class UsersService {
     }));
 
     const referencePoint = {
-      latitude: -36.85086833333333, //user.userLocation[0],
-      longitude: 174.80865166666666, //user.userLocation[1],
+      latitude: user.userLocation[0],
+      longitude: user.userLocation[1],
     };
 
     const nearestBuses: BusDataInterface[] = [...mappedBusData]

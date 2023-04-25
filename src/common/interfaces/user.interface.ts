@@ -1,6 +1,6 @@
 export interface UserInterface {
   userId: string;
-  userLocation: string[];
+  userLocation: number[];
   userRideBusId: string;
   busRideEnded: boolean;
 }
