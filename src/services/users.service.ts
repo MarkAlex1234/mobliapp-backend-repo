@@ -23,8 +23,14 @@ export class UsersService {
    * @returns
    */
   async addUser(user: UserInterface): Promise<UserInterface> {
-    await this.writeUserData(user);
-    return this.getUser(user.userId);
+    const userExisits = await this.getUserFromFirebase(user.userId);
+
+    if (!userExisits) {
+      await this.writeUserData(user);
+      return this.getUser(user.userId);
+    } else {
+      console.error('ERROR - user already exisits with that ID', user);
+    }
   }
 
   /**
