@@ -85,8 +85,10 @@ export class UsersService {
     return user;
   }
 
-  async setUserBusRide(userId: string): Promise<UserInterface> {
+  async setUserBusRide(userId: string, busId: string): Promise<UserInterface> {
     const user = await this.getUserFromFirebase(userId);
+
+    user.userRideBusId = busId;
 
     // Write the updated data to firebase - Can be async logs errors and successes
     this.writeUserData(user);

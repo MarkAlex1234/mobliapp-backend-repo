@@ -32,9 +32,12 @@ export class UsersContoller {
   /**
    * Endpoint for users to confirm the bus they are on
    */
-  @Post('user/:userId/location')
-  setUserBusRide(@Param('userId') userId: string) {
-    return this.usersService.setUserBusRide(userId);
+  @Post('user/:userId/confirm/:busId')
+  setUserBusRide(
+    @Param('userId') userId: string,
+    @Param('busId') busId: string,
+  ) {
+    return this.usersService.setUserBusRide(userId, busId);
   }
 
   /**
@@ -48,7 +51,7 @@ export class UsersContoller {
   /**
    * Endpoint to end a users ride
    */
-  @Put('user/:userId/location')
+  @Put('user/:userId/end-ride')
   endUserBusRide(@Param('userId') userId: string) {
     return this.usersService.endUserBusRide(userId);
   }
