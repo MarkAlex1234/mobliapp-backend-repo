@@ -130,31 +130,27 @@ export class UsersService {
    * **/
   async getUserFromFirebase(userId: string): Promise<UserInterface> {
     const userRef = admin.database().ref('users/' + userId);
-    let user: UserInterface;
-
-    userRef
-      .once('value', (snapshot) => {
-        const userData = snapshot.val();
-        if (userData) {
-          user = {
-            userId: userData?.userId ?? null,
-            userLocation: userData?.userLocation ?? null,
-            userRideBusId: userData?.userRideBusId ?? null,
-            busRideEnded: userData?.busRideEnded ?? null,
-          };
-          console.log('User data retrieved:', user);
-        } else {
-          console.log('No data available for user ID:', userId);
-        }
-      })
-      .catch((error) => {
-        console.error('Error reading data:', error);
-      });
-
-    if (user) {
-      return user;
-    } else {
-      console.error('Error getting user: ', userId);
+  
+    try {
+      const snapshot = await userRef.once('value');
+      const userData = snapshot.val();
+  
+      if (userData) {
+        const user: UserInterface = {
+          userId: userData?.userId ?? null,
+          userLocation: userData?.userLocation ?? null,
+          userRideBusId: userData?.userRideBusId ?? null,
+          busRideEnded: userData?.busRideEnded ?? null,
+        };
+        console.log('User data retrieved:', user);
+        return user;
+      } else {
+        console.log('No data available for user ID:', userId);
+        throw new Error(`No data available for user ID: ${userId}`);
+      }
+    } catch (error) {
+      console.error('Error reading data:', error);
+      throw error;
     }
   }
 }

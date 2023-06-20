@@ -9,8 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   //UNCOMMENT WHEN RUNNING LOCAL FRONTEND PROJECT:
-  //app.enableCors();
-
+  app.enableCors();
   await app.listen(process.env.PORT);
 }
 bootstrap();
